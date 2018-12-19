@@ -17,7 +17,8 @@ var config = {
 var trainName = $("#trainName").val().trim();
 var destination = $("#destination").val().trim();
 var time = $("#militaryTime").val().trim();
-var frequency = $("#frequency").val().trim();
+var frequency = $("#frequency").val().trim();//use moment.js here to get times for trains. 
+// add variable for minutes away.
 
 database.ref("trainData").push({
   trainName: trainName,
@@ -41,5 +42,5 @@ database.ref("trainData").on("child_added", function(snapshot) {
   var newFrequency = $("<td>" + frequencyX + "</td>");
 
   newRow.append(newTrain).append(newDestination).append(newTime).append(newFrequency);
-  $("#")
+  $("#tableBody").append(newRow);
 })
