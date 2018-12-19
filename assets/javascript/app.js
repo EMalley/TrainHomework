@@ -18,4 +18,28 @@ var trainName = $("#trainName").val().trim();
 var destination = $("#destination").val().trim();
 var time = $("#militaryTime").val().trim();
 var frequency = $("#frequency").val().trim();
+
+database.ref("trainData").push({
+  trainName: trainName,
+  destination: destination,
+  militaryTime: time,
+  frequency: frequency,
+// still more to add here
+})
   })
+
+database.ref("trainData").on("child_added", function(snapshot) {
+  var trainX = snapshot.val().trainName;
+  var destinationX = snapshot.val().destination;
+  var timeX = snapshot.val().time;
+  var frequencyX = snapshot.val().frequency;
+
+  var newRow = $("<tr>");
+  var newTrain = $("<td>" + trainX + "</td>");
+  var newDestination = $("<td>" + destinationX + "</td>");
+  var newTime = $("<td>" + timeX + "</td>");
+  var newFrequency = $("<td>" + frequencyX + "</td>");
+
+  newRow.append(newTrain).append(newDestination).append(newTime).append(newFrequency);
+  $("#")
+})
