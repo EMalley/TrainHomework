@@ -1,0 +1,22 @@
+#heading {
+    background-image: linear-gradient(to right, #cae9e7, #37b9e9);
+    background-size: cover;
+    background-repeat: no-repeat;
+    text-align: center;
+}
+
+h1 {
+    font-size: 86px;
+    -webkit-text-stroke: 2px #fff;
+}
+
+h2 {
+    -webkit-text-stroke: .5px #fff;
+}
+
+.card-header {
+    background-image: linear-gradient(to right, #cae9e7, #37b9e9);
+    -webkit-text-stroke: .6px #fff;
+    color:#000;
+    font-weight: bold;
+}
