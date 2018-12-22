@@ -8,6 +8,7 @@ var config = {
   };
   firebase.initializeApp(config);
   var database= firebase.database();
+  var nextTrain;
 
 // When the user clicks the "Add Train button it will update the first table on webpage"
   $(document).on("click", "#addTrain", function(event){
@@ -20,11 +21,7 @@ var time = $("#militaryTime").val().trim();
 var frequency = $("#frequency").val().trim();
 // =====================================================
 var firstTimeConverted = moment(time, "HH:mm").subtract(1, "years");
-console.log(firstTimeConverted);
-
-// Current Time
-var currentTime = moment();
-console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
+console.log("First Conversion: ", firstTimeConverted);
 
 // Difference between the times
 var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
@@ -39,8 +36,9 @@ var tMinutesTillTrain = frequency - tRemainder;
 console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
 
 // Next Train
-var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+nextTrain = moment().add(tMinutesTillTrain, "minutes");
 console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
+nextTrain = moment(nextTrain).format("hh:mm");
 
 // local holder for train Data and pushes info to Firebase
 database.ref("trainData").push({
@@ -66,7 +64,7 @@ database.ref("trainData").on("child_added", function(snapshot) {
   var newTime = $("<td>" + timeX + "</td>");
   var newFrequency = $("<td>" + frequencyX + "</td>");
   var nextTrain = $("<td>" + nextTrainX + "</td>");
-
+console.log("NextTrain: ", nextTrain);
   newRow.append(newTrain).append(newDestination).append(newFrequency).append(newTime).append(nextTrain);
   $("#tableBody").append(newRow);
 })
