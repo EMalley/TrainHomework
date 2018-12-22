@@ -19,6 +19,8 @@ var trainName = $("#trainName").val().trim();
 var destination = $("#destination").val().trim();
 var time = $("#militaryTime").val().trim();
 var frequency = $("#frequency").val().trim();
+
+// Calculations
 // =====================================================
 var firstTimeConverted = moment(time, "HH:mm").subtract(1, "years");
 console.log("First Conversion: ", firstTimeConverted);
@@ -47,6 +49,7 @@ database.ref("trainData").push({
   militaryTime: time,
   frequency: frequency,
   nextTrain: nextTrain,
+  minutesTillArrival: tMinutesTillTrain 
 
 })
   })
@@ -54,17 +57,19 @@ database.ref("trainData").push({
 database.ref("trainData").on("child_added", function(snapshot) {
   var trainX = snapshot.val().trainName;
   var destinationX = snapshot.val().destination;
-  var timeX = snapshot.val().militaryTime;
+  // var timeX = snapshot.val().militaryTime;
   var frequencyX = snapshot.val().frequency;
-  var nextTrainX = snapshot.val().frequency;
+  var nextTrainX = snapshot.val().nextTrain;
+  var tMinutesTillTrain = snapshot.val().minutesTillArrival;  
 
   var newRow = $("<tr>");
   var newTrain = $("<td>" + trainX + "</td>");
   var newDestination = $("<td>" + destinationX + "</td>");
-  var newTime = $("<td>" + timeX + "</td>");
   var newFrequency = $("<td>" + frequencyX + "</td>");
   var nextTrain = $("<td>" + nextTrainX + "</td>");
+  var minutesTillArrival = $("<td>" + tMinutesTillTrain + "</td>");
+
 console.log("NextTrain: ", nextTrain);
-  newRow.append(newTrain).append(newDestination).append(newFrequency).append(newTime).append(nextTrain);
+  newRow.append(newTrain).append(newDestination).append(newFrequency).append(nextTrain).append(minutesTillArrival);
   $("#tableBody").append(newRow);
 })
